@@ -1,15 +1,27 @@
-public class EmployeeWageComputation {
+class CompanyEmpWage {
 
-    static final int EMP_RATE_PER_HOUR = 20;
+    String company;
+    int empRatePerHour;
+    int workingDays;
+    int maxHours;
+    int totalWage;
 
-    public static int computeEmpWage(int hours) {
-        return hours * EMP_RATE_PER_HOUR;
+    public CompanyEmpWage(String company,
+                          int empRatePerHour,
+                          int workingDays,
+                          int maxHours) {
+
+        this.company = company;
+        this.empRatePerHour = empRatePerHour;
+        this.workingDays = workingDays;
+        this.maxHours = maxHours;
     }
 
-    public static void main(String[] args) {
+    public void setTotalWage(int totalWage) {
+        this.totalWage = totalWage;
+    }
 
-        int wage = computeEmpWage(8);
-
-        System.out.println("Employee Wage : " + wage);
+    public String toString() {
+        return company + " Total Wage : " + totalWage;
     }
 }
