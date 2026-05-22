@@ -3,53 +3,82 @@ public class EmpWageBuilder {
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
 
-    private CompanyEmpWage companyEmpWage;
+    private ArrayList<CompanyEmpWage> companyEmpWageList;
 
+    public EmpWageBuilder() {
+        companyEmpWageList = new ArrayList<>();
+    }
+
+    @Override
     public void addCompanyEmpWage(String company,
                                   int empRatePerHour,
                                   int numOfWorkingDays,
                                   int maxHoursPerMonth) {
 
-        companyEmpWage = new CompanyEmpWage(company,
-                empRatePerHour,
-                numOfWorkingDays,
-                maxHoursPerMonth);
+        CompanyEmpWage companyEmpWage =
+                new CompanyEmpWage(company,
+                        empRatePerHour,
+                        numOfWorkingDays,
+                        maxHoursPerMonth);
+
+        companyEmpWageList.add(companyEmpWage);
     }
 
+    @Override
     public void computeEmpWage() {
 
-        int empHours = 0;
-        int totalEmpHours = 0;
-        int totalWorkingDays = 0;
+        for (CompanyEmpWage company : companyEmpWageList) {
 
-        while (totalEmpHours <= companyEmpWage.maxHoursPerMonth
-                && totalWorkingDays < companyEmpWage.numOfWorkingDays) {
+            int empHours = 0;
+            int totalEmpHours = 0;
+            int totalWorkingDays = 0;
 
-            totalWorkingDays++;
+            while (totalEmpHours <= company.maxHoursPerMonth
+                    && totalWorkingDays < company.numOfWorkingDays) {
 
-            int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+                totalWorkingDays++;
 
-            switch (empCheck) {
-                case IS_PART_TIME:
-                    empHours = 4;
-                    break;
+                int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 
-                case IS_FULL_TIME:
-                    empHours = 8;
-                    break;
+                switch (empCheck) {
 
-                default:
-                    empHours = 0;
+                    case IS_PART_TIME:
+                        empHours = 4;
+                        break;
+
+                    case IS_FULL_TIME:
+                        empHours = 8;
+                        break;
+
+                    default:
+                        empHours = 0;
+                }
+
+                totalEmpHours += empHours;
+
+                int dailyWage = empHours * company.empRatePerHour;
+
+                company.dailyWageList.add(dailyWage);
             }
 
-            totalEmpHours += empHours;
+            int totalEmpWage =
+                    totalEmpHours * company.empRatePerHour;
+
+            company.setTotalEmpWage(totalEmpWage);
+
+            System.out.println(company);
+        }
+    }
+
+    public int getTotalWage(String companyName) {
+
+        for (CompanyEmpWage company : companyEmpWageList) {
+
+            if (company.company.equals(companyName)) {
+                return company.totalEmpWage;
+            }
         }
 
-        int totalEmpWage =
-                totalEmpHours * companyEmpWage.empRatePerHour;
-
-        companyEmpWage.setTotalEmpWage(totalEmpWage);
-
-        System.out.println(companyEmpWage);
+        return 0;
     }
 }
