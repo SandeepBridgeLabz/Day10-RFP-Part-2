@@ -43,6 +43,7 @@ public class EmpWageBuilder implements IEmpWageBuilder {
                 int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 
                 switch (empCheck) {
+
                     case IS_PART_TIME:
                         empHours = 4;
                         break;
@@ -56,6 +57,10 @@ public class EmpWageBuilder implements IEmpWageBuilder {
                 }
 
                 totalEmpHours += empHours;
+
+                int dailyWage = empHours * company.empRatePerHour;
+
+                company.dailyWageList.add(dailyWage);
             }
 
             int totalEmpWage =
@@ -65,5 +70,17 @@ public class EmpWageBuilder implements IEmpWageBuilder {
 
             System.out.println(company);
         }
+    }
+
+    public int getTotalWage(String companyName) {
+
+        for (CompanyEmpWage company : companyEmpWageList) {
+
+            if (company.company.equals(companyName)) {
+                return company.totalEmpWage;
+            }
+        }
+
+        return 0;
     }
 }
