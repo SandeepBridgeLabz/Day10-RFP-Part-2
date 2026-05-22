@@ -1,14 +1,14 @@
+import java.util.ArrayList;
+
 public class EmpWageBuilder implements IEmpWageBuilder {
 
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
 
-    private CompanyEmpWage[] companyEmpWageArray;
-    private int numOfCompanies;
+    private ArrayList<CompanyEmpWage> companyEmpWageList;
 
     public EmpWageBuilder() {
-        companyEmpWageArray = new CompanyEmpWage[5];
-        numOfCompanies = 0;
+        companyEmpWageList = new ArrayList<>();
     }
 
     @Override
@@ -17,21 +17,19 @@ public class EmpWageBuilder implements IEmpWageBuilder {
                                   int numOfWorkingDays,
                                   int maxHoursPerMonth) {
 
-        companyEmpWageArray[numOfCompanies] =
+        CompanyEmpWage companyEmpWage =
                 new CompanyEmpWage(company,
                         empRatePerHour,
                         numOfWorkingDays,
                         maxHoursPerMonth);
 
-        numOfCompanies++;
+        companyEmpWageList.add(companyEmpWage);
     }
 
     @Override
     public void computeEmpWage() {
 
-        for (int i = 0; i < numOfCompanies; i++) {
-
-            CompanyEmpWage company = companyEmpWageArray[i];
+        for (CompanyEmpWage company : companyEmpWageList) {
 
             int empHours = 0;
             int totalEmpHours = 0;
