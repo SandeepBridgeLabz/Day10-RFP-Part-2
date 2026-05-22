@@ -1,4 +1,4 @@
-public class EmpWageBuilder {
+public class EmpWageBuilder implements IEmpWageBuilder {
 
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
@@ -11,6 +11,7 @@ public class EmpWageBuilder {
         numOfCompanies = 0;
     }
 
+    @Override
     public void addCompanyEmpWage(String company,
                                   int empRatePerHour,
                                   int numOfWorkingDays,
@@ -25,6 +26,7 @@ public class EmpWageBuilder {
         numOfCompanies++;
     }
 
+    @Override
     public void computeEmpWage() {
 
         for (int i = 0; i < numOfCompanies; i++) {
