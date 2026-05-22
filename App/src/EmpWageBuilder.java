@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-
-public class EmpWageBuilder implements IEmpWageBuilder {
+public class EmpWageBuilder {
 
     public static final int IS_PART_TIME = 1;
     public static final int IS_FULL_TIME = 2;
